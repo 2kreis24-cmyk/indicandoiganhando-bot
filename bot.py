@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import asyncio
 from telegram import (
     Update,
     InlineKeyboardButton,
@@ -779,44 +780,32 @@ parse_mode="HTML"
     context.user_data.clear()
 
 
-
 # =====================
-# WEBHOOK NÃO USA
+# INICIAR BOT
 # =====================
-# Versão estável para Render Worker
 
-def main():
+async def main():
 
     bot = Application.builder().token(TOKEN).build()
 
 
     bot.add_handler(
-        CommandHandler(
-            "start",
-            start
-        )
+        CommandHandler("start", start)
     )
 
 
     bot.add_handler(
-        CommandHandler(
-            "painel",
-            painel
-        )
+        CommandHandler("painel", painel)
     )
 
 
     bot.add_handler(
-        CallbackQueryHandler(
-            buttons
-        )
+        CallbackQueryHandler(buttons)
     )
 
 
     bot.add_handler(
-        ChatMemberHandler(
-            check_join
-        )
+        ChatMemberHandler(check_join)
     )
 
 
@@ -830,8 +819,18 @@ def main():
 
     print("BOT ONLINE")
 
-    bot.run_polling()
+
+    await bot.initialize()
+    await bot.start()
+    await bot.updater.start_polling()
+
+
+    await asyncio.Event().wait()
+
 
 
 if __name__ == "__main__":
-    main()
+
+    import asyncio
+
+    asyncio.run(main())
