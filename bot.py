@@ -832,9 +832,9 @@ async def main():
 
     print("BOT ONLINE")
 
-
     await bot.run_polling()
-  
-  if __name__ == "__main__":
-    
+
+
+if __name__ == "__main__":
+
     asyncio.run(main())
