@@ -1,6 +1,5 @@
 import os
 import sqlite3
-import asyncio
 from telegram import (
     Update,
     InlineKeyboardButton,
@@ -786,8 +785,7 @@ parse_mode="HTML"
 # =====================
 # Versão estável para Render Worker
 
-
-async def main():
+def main():
 
     bot = Application.builder().token(TOKEN).build()
 
@@ -832,9 +830,8 @@ async def main():
 
     print("BOT ONLINE")
 
-    await bot.run_polling()
+    bot.run_polling()
 
 
 if __name__ == "__main__":
-
-    asyncio.run(main())
+    main()
